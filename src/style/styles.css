@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.btns button {
+  outline: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+ margin: 0 5px;
+ 
+}
+html{
+  font-family: "Josefin Sans", sans-serif;
+
+}
+body {
+  font-family: "Josefin Sans", sans-serif;
+  text-align: center;
+  width: 100%;
+  background-color: transparent;
+  z-index: -999;
+}
+
+.bg-image{
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 0;
+  width:100%;
+  min-height: 50vh;
+
+}
+.main {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;  
+  width: 100%;
+  text-align: center;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width:45%
+}
+.header h1 {
+  color: white;
+  font-size: 2.5em;
+  letter-spacing: 8px;
+  font-weight: 500;
+  z-index:23;
+}
+.header button {
+  background: none;
+  outline: none;
+  border: none;
+  color: black;
+}
+
+
+/******* Todo Section********/
+.todo-section{
+  width:45%
+}
+.main-input {
+  height: 50px;
+  width: 100%;
+  padding: 10px 30px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.todo-list{
+  background-color: hsl(235, 24%, 19%);
+  border-radius: 5px;
+  width:100%;
+}
+.todo-item {
+   display: flex;
+  justify-content: space-between;
+   align-items: center;
+   padding: 15px 20px;
+   padding-bottom: 0;
+  border-bottom: thin solid hsl(236, 9%, 61%);
+}
+.todo-item:nth-child(1){
+  border-radius: 5px 5px 0 0;
+
+}
+.todo-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.todo-text p{
+  font-size: 1rem;
+  margin-top: 5px;
+font-weight: 500;
+margin-left:15px;
+
+}
+.iconx{
+  width: 15Px;
+  height: 15px;
+  cursor: pointer;
+  margin-bottom: 13px;
+
+}
+ 
+.container {
+ display: flex;
+ justify-content: flex-start;
+ align-items: center;
+}
+.container input{
+  margin-bottom: 14px;
+}
+
+.bottom-items button {
+  outline: none;
+  text-decoration: none;
+  margin-left: 5px;
+  color:hsl(235, 19%, 35%);
+  cursor: pointer;
+  background-color:transparent;
+  border: none;
+  transition: all 0.3s ease;
+ 
+}
+#switch{
+  cursor: pointer;
+}
+.bottom-items {
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 14px;
+  padding: 0px 15px;
+}
+.bottom-items p{
+  margin-top: 14px;
+  color: white;
+  font-weight: 500;
+}
+.btns button{
+  
+color:hsl(235, 19%, 35%);
+font-weight: 700;
+transition: all 0.3s ease;
+
+}
+
+
+.bottom-items button:hover {
+  outline: none;
+  text-decoration: none;
+  margin-left: 5px;
+  color: hsl(0, 0%, 98%);
+  cursor: pointer;
+  background-color:transparent;
+  border: none;
+  transition: all 0.3s ease;
+ 
+}
+.bottom-items button:nth-child(1){
+  color: hsl(220, 98%, 61%);
+  transition: all 0.3s ease;
+} 
