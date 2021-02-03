@@ -1,12 +1,23 @@
-import React , {useState} from 'react';
+import React , {  useContext , useEffect } from 'react';
 import "./style/styles.css";
 import List from "./components/List";
 import { TodoProvider } from './Context/TodoContext.js';
+import { ThemeContext } from './Context/ThemeContext';
+
 
 function App() {
-  const [dark , setDark ] = useState(true);
+   const { dark  , setDark  } = useContext(ThemeContext);
+
+
+  useEffect(() => {
+    localStorage.setItem('theme' , JSON.stringify(dark));
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dark])
+
+ 
 
  const backgroundStyle={
+
   display:'flex',
   justifyContent:'center',
   alignItems:'center',
@@ -14,11 +25,11 @@ function App() {
     position:'relative',
      width:'100%',
      minHeight:'100vh',
-    zIndex : '40'
-   
+    zIndex : '40' 
  }
   return (
     <>
+
     <div style={backgroundStyle} >
       
       <img style={{transition : "all 0.8s ease"}} className="bg-image" src={ dark ? './images/bg-desktop-dark.jpg' : './images/bg-desktop-light.jpg' } alt=""/>
@@ -26,7 +37,7 @@ function App() {
        <div className="main">
         <div className="header">
           <h1>TODO</h1>
-      <img style={{zIndex : '40'}} onClick={()=>setDark(!dark)} id="switch" className="image" src={ dark ? 'images/icon-sun.svg' : 'images/icon-moon.svg'}  alt="" />
+      <img style={{zIndex : '40'}} onClick={()=>{setDark(!dark)}} id="switch" className="image" src={ dark ? 'images/icon-sun.svg' : 'images/icon-moon.svg'}  alt="" />
          
         </div>
 
@@ -50,6 +61,8 @@ function App() {
         </div>
       </div>
     </div>
+
+
     </>
   );
 }

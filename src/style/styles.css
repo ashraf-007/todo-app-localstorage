@@ -65,6 +65,20 @@ body {
 .todo-section{
   width:45%
 }
+@media (max-width:1043px){
+  .todo-section , .header {
+    width:80%
+}
+
+}
+@media (max-width:790px){
+  .todo-section{
+       width:90%
+  }
+  .header {
+    width:90%
+  }
+}
 .main-input {
   height: 50px;
   width: 100%;
@@ -81,46 +95,46 @@ body {
   background-color: hsl(235, 24%, 19%);
   border-radius: 5px;
   width:100%;
+  transition : background 0.4s ease ;
+  box-shadow: 0 5px 12px -5px black;
 }
 .todo-item {
    display: flex;
-  justify-content: space-between;
+   justify-content: space-between;
    align-items: center;
-   padding: 15px 20px;
-   padding-bottom: 0;
-  border-bottom: thin solid hsl(236, 9%, 61%);
+   padding: 20px 20px 0 10px;
+   border-bottom: thin solid hsl(236, 9%, 61%);
 }
 .todo-item:nth-child(1){
   border-radius: 5px 5px 0 0;
-
 }
+
 .todo-text {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 .todo-text p{
   font-size: 1rem;
-  margin-top: 5px;
-font-weight: 500;
-margin-left:15px;
-
+   font-weight: 500;
+   padding-top: 3px;
+   padding-left: 15px;
 }
-.iconx{
-  width: 15Px;
+.iconx {
+  width: 15px;
   height: 15px;
   cursor: pointer;
-  margin-bottom: 13px;
-
+  margin-bottom: 15px;
 }
  
 .container {
  display: flex;
  justify-content: flex-start;
- align-items: center;
+ align-items: center; 
 }
-.container input{
-  margin-bottom: 14px;
+.todo-text:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .bottom-items button {
@@ -144,11 +158,14 @@ margin-left:15px;
   align-items: center;
   font-size: 14px;
   padding: 0px 15px;
+  border-radius : 0 0 5px 5px;
+  transition : background 0.4s ease;
+  box-shadow: 0 3px 10px -5px black;
 }
 .bottom-items p{
   margin-top: 14px;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
 }
 .btns button{
   
@@ -173,4 +190,69 @@ transition: all 0.3s ease;
 .bottom-items button:nth-child(1){
   color: hsl(220, 98%, 61%);
   transition: all 0.3s ease;
-} 
+}
+
+.con {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  padding-bottom: 30px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.con input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  border : 1px solid hsl(220, 98%, 61%);
+  background-color: transparent;
+  border-radius: 15px;
+  transition: all 0.2s ease;
+
+}
+.checkmark:hover{
+  border : 1px solid hsl(280, 87%, 65%);
+  transition: all 0.2s ease;
+
+}
+
+
+.container input:checked ~ .checkmark {
+ background-image: linear-gradient(to right , hsl(192, 100%, 67%) , hsl(280, 87%, 65%));
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+.container .checkmark:after {
+  left: 7.8px;
+  top: 4px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

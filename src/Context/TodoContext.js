@@ -1,106 +1,93 @@
-import React , { createContext , useReducer }from 'react';
-import { AppReducer }from './AppReducer.js';
-import axios from 'axios';
+import React , { createContext , useState }from 'react';
+import { v4 as uuid } from 'uuid';
 export const TodoContext = createContext();
 
- const initialState = {
-     todos: [] ,
-     todoCount : 0
- }
-
-
 export const TodoProvider = ({children})=> {
-   const [ state , dispatch ] = useReducer(AppReducer , initialState );
+const [ todos , setTodos ] = useState([]);
+
    //Actions 
-   async function getTodos() {
-    try {
-        const { data } = await axios.get('https://todo-app-server1.herokuapp.com/todos');
+ 
+  function  addTodo(todo) {
+  setTodos((pre)=> {
+      return [ todo , ...pre ]
+  }) ;
+   localStorage.setItem('todos' , JSON.stringify(todos))
 
-        dispatch({
-            type:'GET_TODOS',
-            payload : data
-        })
-       
-    } catch (error) {
-        console.log("Error in Geting Todos from Server : " , error)
-    }
 }
-async function  addTodo(todo) {
-    const config = {
-        headers : {
-          'Content-type':'application/json'
-        }
-    }
-          try {
+ function deleteTodo(id) {
+setTodos(todos.filter((todo)=> todo.id !== id))
+localStorage.setItem('todos' , JSON.stringify(todos))
+}
 
-         await axios.post('https://todo-app-server1.herokuapp.com/todos' , todo , config );
-         dispatch({
-            type:'ADD_TODO',
-            payload : todo
-        })
-       
-    } catch (error) {
-        console.log("Post error message : " , error)
-    }
-}
-async function deleteTodo(id) {
-try {
-    await axios.delete(`https://todo-app-server1.herokuapp.com/todos/${id}`)
-    dispatch({
-     type:'DELETE_TODO',
-     payload: id
-    })
-} catch (error) {
-    console.log('Error in deleting a Todo ' , error)
-}
-}
-async function toggleCompleted(id , update){
-    const config = {
-        headers : {
-          'Content-type':'application/json'
+ function toggleCompleted(id){
+
+   setTodos(todos.map((todo)=> {
+        if (todo.id === id ){
+        return  { 
+                  id: todo.id,
+                  text : todo.text,
+                  completed : !todo.completed 
+                }
+         }
+        else {
+            return todo;
         }
     }
 
-    try {
-       const { data } =  await axios.patch( `https://todo-app-server1.herokuapp.com/todos/${id} `, update , config);
+))
 
-        dispatch({
-            type:'TOGGLE_COMPLETED',
-            payload: data.data
-        })
+  }
 
-    } catch (error) {
-        console.log("Updating completed error : " , error)
-    }
-}
 function getItems(items){
-    try {
-        dispatch({
-            type:'NEW',
-            payload : items
-        })
-    } catch (error) {
-        console.log('Error in getting items from onDragEnd : ' , error)
-    }
-    
-}
- async function deleteCompleted(){
-    try {
-         const response = await axios.delete('https://todo-app-server1.herokuapp.com/todos');
-         dispatch({
-             type:'DELETE_ALL',
-             payload: response 
-         })
-    } catch (error) {
-        console.log('Error in deleting All ...' , error)
-        
-    }
-}
+   setTodos(items)
 
+}
+  function deleteCompleted(){
+    setTodos(todos.filter((todo)=> !todo.completed))
+
+}
+function getTodos() {
+  const localData = localStorage.getItem('todos')
+  if(!localData){
+    setTodos([{
+      id:uuid(),
+      text : 'Complete online JavaScript course',
+      completed : true
+    },
+    {
+      id:uuid(),
+      text : 'Jog around the park 3x',
+      completed : false 
+    },
+    {
+      id:uuid(),
+      text :  '10 minutes meditation',
+      completed : false 
+    },
+    {
+      id:uuid(),
+      text :'Read for 1h',
+      completed : false 
+    },
+    {
+      id:uuid(),
+      text :'Pick up groceries',
+      completed : false 
+    },{
+      id:uuid(),
+      text : 'Complete Todo App Front end mentor',
+      completed : false 
+    }])
+  } else {
+    setTodos(JSON.parse(localData))
+  }
+   
+}
 
     return (
        <TodoContext.Provider value={{
-        todos : state.todos ,
+        todos ,
+        setTodos,
         getTodos ,
         addTodo ,
         deleteTodo,

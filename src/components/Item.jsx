@@ -1,5 +1,11 @@
-import React from "react";
-function Item({ onComplete, todo , dark , deleteTodo , key , index , provided}) {
+import React , { useContext } from "react";
+import { TodoContext } from '../Context/TodoContext';
+import { ThemeContext } from '../Context/ThemeContext';
+
+function Item({ todo , provided }) {
+const { toggleCompleted  , deleteTodo } = useContext(TodoContext);
+ const { dark } = useContext(ThemeContext);
+
   const todoStyle = {
     backgroundColor: dark ? 'hsl(235, 24%, 19%)': 'white',
     transition : 'background 0.4s ease'
@@ -15,14 +21,16 @@ function Item({ onComplete, todo , dark , deleteTodo , key , index , provided}) 
           className="todo-item" >
            <div className="todo-text">
              <div className="container">
-             <input
-             
-               onClick={onComplete}
+              <label className='con'>
+               <input
+               onClick={()=> toggleCompleted(todo.id)}
                defaultChecked={todo.completed}
                type="checkbox"
                name="checkbox"
                id='checkbox'
               />
+               <span className="checkmark"></span>
+               </label>
              <p id="paragraph"
                style={{
                  textDecoration: todo.completed ? "line-through" : "none"
@@ -35,7 +43,7 @@ function Item({ onComplete, todo , dark , deleteTodo , key , index , provided}) 
 
            </div>
            <img onClick={()=>{
-             deleteTodo(todo._id)
+             deleteTodo(todo.id)
              }} className="iconx" src="./images/icon-cross.svg" alt=""/> 
          </div>
  

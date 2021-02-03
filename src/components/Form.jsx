@@ -5,12 +5,13 @@ import { TodoContext } from '../Context/TodoContext.js';
 export default function Form(props) {
 
 const { addTodo } = useContext(TodoContext);
+const [text, setText] = useState("");
+
  let input = useRef(null);
 
 useEffect(()=>{
       TweenMax.fromTo( input , 2.2 , {y:-30 , ease:Bounce.easeOut} , {y:0 , ease:Bounce.easeOut})
    },[])
-  const [text, setText] = useState("");
 
  const inputStyle = {
   backgroundColor : props.dark ? 'hsl(235, 24%, 19%)': 'hsl(0, 0%, 98%)',
@@ -28,7 +29,7 @@ useEffect(()=>{
   const handleSubmit = (e) => {
     e.preventDefault();
     addTodo({
-      _id: shortid.generate(),
+      id: shortid.generate(),
       text,
       completed: false
     });
