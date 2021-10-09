@@ -73,10 +73,6 @@ function getTodos() {
       id:uuid(),
       text :'Pick up groceries',
       completed : false 
-    },{
-      id:uuid(),
-      text : 'Complete Todo App Front end mentor',
-      completed : false 
     }])
   } else {
     setTodos(JSON.parse(localData))
